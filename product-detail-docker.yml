@@ -1,43 +1,42 @@
-db:
-  url: jdbc:h2:~/MeliChallenge;AUTO_SERVER=TRUE
+datasource:
   driver-class-name: org.h2.Driver
+  url: jdbc:h2:~/MeliChallengeFallback;AUTO_SERVER=TRUE
   username: sa
-  password: 
+  password: ""
+jpa:
+  hibernate:
+    ddl-auto: none
+  show-sql: true
+liquibase:
+  enabled: true 
+  change-log: classpath:db/changelog/db.changelog-master.xml
+  drop-first: true  
 h2:
   console:
     enabled: true
     path: /h2-console
-server:
-  port: 8080
-  tomcat:
-    mbeanregistry:
-      enabled: true
-    threads:
-      max: 25
-      min-spare: 2  
-  servlet:
+config:
+    import: "optional:configserver:http://localhost:7777"
+servlet:
     context-path: /product-detail
 springdoc:
   swagger-ui:
     path: /swagger
   api-docs:
     path: /v3/api-docs
-management:
-  tracing:
-    sampling:
-      probability: 1.0  # 100% para endpoints de aplicación
-    enabled: true  # 
+tracing:
+  sampling:
+    probability: 1.0
+  enabled: true  
 zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    endpoint: http://localhost:9411/api/v2/spans
 prometheus:
   metrics:
     export:
       enabled: true
       step: 30s
-logging:
-  level:
-    '[io.micrometer.tracing]': WARN
-    '[brave]': WARN
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
