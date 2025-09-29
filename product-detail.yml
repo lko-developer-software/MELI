@@ -1,5 +1,5 @@
 db:
   driver: org.h2.Driver
-  url: jdbc:h2:~/MeliChallengFallback;AUTO_SERVER=TRUE
+  url: jdbc:h2:~/MeliChalleng;AUTO_SERVER=TRUE
   username: sa
   password: ""
