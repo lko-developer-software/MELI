@@ -19,55 +19,26 @@ h2:
     path: /h2-console
 config:
     import: "optional:configserver:http://localhost:7777"
-server:
-  port: 8080
-  tomcat:
-    mbeanregistry:
-      enabled: true
-    threads:
-      max: 25
-      min-spare: 2  
-  servlet:
+servlet:
     context-path: /product-detail
 springdoc:
   swagger-ui:
     path: /swagger
   api-docs:
     path: /v3/api-docs
-
 tracing:
   sampling:
-    probability: 1.0  # 100% para endpoints de aplicación
-  enabled: true  # 
+    probability: 1.0
+  enabled: true  
 zipkin:
   tracing:
     endpoint: http://localhost:9411/api/v2/spans
-endpoints:
-  web:
-    exposure:
-      include: info,health,metrics,prometheus
-  access:
-    default: unrestricted
 prometheus:
   metrics:
     export:
       enabled: true
       step: 30s
-metrics:
-  tags:
-    application: ${spring.application.name}
-endpoint:
-  health:
-    show-details: when-authorized
-  metrics:
-    access: unrestricted
-  prometheus:
-    access: unrestricted
 eureka:
-  instance:
-    instance-id: "${spring.application.name}:${random.value}"
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
