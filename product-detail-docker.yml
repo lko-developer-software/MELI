@@ -1,6 +1,6 @@
 datasource:
   driver-class-name: org.h2.Driver
-  url: jdbc:h2:~/MeliChallengeFallback;AUTO_SERVER=TRUE
+  url: jdbc:h2:~/MeliChallenge;AUTO_SERVER=TRUE
   username: sa
   password: ""
 jpa:
@@ -19,6 +19,12 @@ config:
     import: "optional:configserver:http://localhost:7777"
 servlet:
     context-path: /product-detail
+tomcat:
+    mbeanregistry:
+      enabled: true
+    threads:
+      max: 25
+      min-spare: 2  
 springdoc:
   swagger-ui:
     path: /swagger
